@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../firebase'
 
 import { collection , onSnapshot, orderBy, query, QuerySnapshot } from 'firebase/firestore'
+import ToDo from './toDo';
 
 
 const ToDoList = () => {
@@ -31,7 +32,16 @@ const ToDoList = () => {
 
   return (
     <div>
-        {todos.map(todo=><div key={todo.id}>{todo.title}  </div>)}
+        {todos.map(todo=>
+            <ToDo
+                key={todo.id}
+                title={todo.title}
+                details={todo.details}
+                timestamp={todo.timestamp}
+            
+            
+            />
+        )}
     </div>
   )
 }
