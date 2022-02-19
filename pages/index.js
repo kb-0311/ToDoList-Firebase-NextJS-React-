@@ -8,6 +8,9 @@ import styles from '../styles/Home.module.css'
 import { ToDoContext } from './ToDoContext'
 
 export default function Home() {
+
+  const [todo, setTodo] = useState({title : "" , details : ""});
+
   const [open, setOpen] = useState(false);
   const [alertType , setAlertType] = useState("success");
   const [alertMessage , setAlertMessage] = useState("");
@@ -28,7 +31,7 @@ export default function Home() {
 
 
   return (
-    <ToDoContext.Provider value={{showAlert}}>
+    <ToDoContext.Provider value={{showAlert ,todo , setTodo}}>
           <Container maxWidth="sm">
             <ToDoFrom/>
             <Snackbar 

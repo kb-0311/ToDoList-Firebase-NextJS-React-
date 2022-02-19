@@ -12,7 +12,7 @@ import { ToDoContext } from '../pages/ToDoContext';
 const ToDo = ({id , timestamp , title , details}) => {
 
 
-  const {showAlert} = useContext(ToDoContext);
+  const {showAlert ,todo , setTodo}  = useContext(ToDoContext);
 
   const deleteToDo = async (id ,e) =>{
     e.stopPropagation();
@@ -32,7 +32,7 @@ const ToDo = ({id , timestamp , title , details}) => {
 
 
   return (
-      <ListItem 
+      <ListItem onClick={()=>{setTodo({id  , title , details , timestamp})}}
       sx={{mt:3 , boxShadow : 7 }}
       style={{backgroundColor : '#FAFAFA'}}
       secondaryAction ={

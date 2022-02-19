@@ -1,12 +1,16 @@
 import { Button, TextField } from '@mui/material'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState , useRef ,useEffect } from 'react'
 import { db } from '../firebase';
 import  {ToDoContext} from '../pages/ToDoContext';
 const ToDoFrom = () => {
-    const [todo, setTodo] = useState({title : "" , details : ""});
 
-    const {showAlert} = useContext(ToDoContext);
+
+     const inputAreaRef  = useRef();
+
+    //const [todo, setTodo] = useState({title : "" , details : ""});
+
+    const {showAlert ,todo , setTodo} = useContext(ToDoContext);
     const onSubmit = async () =>{
 
         const collectionRef =  collection(db, "todos")
@@ -20,10 +24,29 @@ const ToDoFrom = () => {
 
     }
 
+    useEffect(() => {
+        const checkIfClickedOuside = e =>{
+            if(!inputAreaRef.current.contains(e.target)){
+                console.log("outside input area");
+                setTodo({title:'' ,details : "" })
+            }
+            else
+            {
+                console.log("inside input field");
+            }
+
+        }
+        document.addEventListener("mousedown" ,checkIfClickedOuside )
+        return(
+            document.addEventListener("mousedown" , checkIfClickedOuside)
+        )
+        
+    }, []);
+
 
 
   return (
-    <div>
+    <div ref={inputAreaRef}>
         <TextField fullWidth label="title" margin='normal'  
             
             value={todo.title}
