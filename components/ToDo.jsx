@@ -14,7 +14,7 @@ const ToDo = ({id , timestamp , title , details}) => {
 
   const {showAlert ,todo , setTodo}  = useContext(ToDoContext);
 
-  const deleteToDo = async (id ,e) =>{
+  const deleteToDo = async (id,title ,e) =>{
     e.stopPropagation();
     
 
@@ -22,7 +22,7 @@ const ToDo = ({id , timestamp , title , details}) => {
     await deleteDoc(deleteDocRef);
 
 
-    showAlert('error' , `TO DO with id --> ${id} deleted successfully`)
+    showAlert('error' , `To do with title  ${title} deleted successfully`)
 
 
 
@@ -37,7 +37,7 @@ const ToDo = ({id , timestamp , title , details}) => {
       style={{backgroundColor : '#FAFAFA'}}
       secondaryAction ={
         <>
-          <IconButton onClick={ e=> deleteToDo(id ,e) }  >
+          <IconButton onClick={ e=> deleteToDo(id , title ,e) }  >
               <DeleteIcon />
 
           </IconButton>
@@ -51,7 +51,7 @@ const ToDo = ({id , timestamp , title , details}) => {
       >
             <ListItemText
                 primary={title}
-                secondary={moment(timestamp).format("MMMM dd , yyyy")}
+                secondary={moment(timestamp).format("DD , MMMM , yyyy")}
             
             />
       </ListItem>

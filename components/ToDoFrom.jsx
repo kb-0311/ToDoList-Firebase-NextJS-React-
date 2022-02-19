@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import React, { useContext, useState , useRef ,useEffect } from 'react'
 import { db } from '../firebase';
 import  {ToDoContext} from '../pages/ToDoContext';
@@ -12,15 +12,47 @@ const ToDoFrom = () => {
 
     const {showAlert ,todo , setTodo} = useContext(ToDoContext);
     const onSubmit = async () =>{
+        if(todo?.hasOwnProperty("timestamp"))
+        {
+            //Updating the added docs in the database
 
-        const collectionRef =  collection(db, "todos")
-        
-        const docRef = await addDoc(collectionRef ,{...todo , timestamp : serverTimestamp()  })
+
+            //getting the collection reference
+            // getting and updating the document refernce to Update
+            const DocRefToBeUpdated = doc(db , "todos" , todo.id); 
+            
+            //Geting the data of the new changed doc 
+            const updatedDoc = {...todo ,  timestamp: serverTimestamp()}
 
 
-        setTodo({title: "" , details : ""});
+            //finally replacing the document to be updated with a new document 
+            updateDoc(DocRefToBeUpdated , updatedDoc)
 
-        showAlert( "success"  ,`Todo with title ${todo.title} added successfully`);
+            //Resetting the state of 'todo'  
+            setTodo({title: "" , details : ""});
+
+
+            //Displaying alert
+            showAlert( "success"  ,`Todo with title ${todo.title} Updated successfully`);
+
+        }
+
+
+        else
+        {
+            //getting the collection reference
+            const collectionRef =  collection(db, "todos")
+
+            // getting and adding the document refernce to add
+            const docRef = await addDoc(collectionRef ,{...todo , timestamp : serverTimestamp()  })
+
+            //Resetting the state of 'todo'  
+            setTodo({title: "" , details : ""});
+
+
+            //Displaying alert
+            showAlert( "success"  ,`Todo with title ${todo.title} added successfully`);
+        }
 
     }
 
@@ -58,7 +90,9 @@ const ToDoFrom = () => {
             onChange={e=>setTodo({...todo , details:e.target.value})}
 
         />
-        <Button sx={{mt : 3}}  variant="contained"  onClick={onSubmit }   >Add A New TODO</Button>
+        <Button sx={{mt : 3}}  variant="contained"  onClick={onSubmit }   >
+            {todo?.hasOwnProperty("timestamp") ? "Update previous To do" :"Add new To do"}
+            </Button>
     </div>
 
   )

@@ -1,4 +1,4 @@
-import { Alert, Container, Snackbar } from '@mui/material'
+import { Alert, Container, Snackbar, Typography } from '@mui/material'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -32,6 +32,9 @@ export default function Home() {
 
   return (
     <ToDoContext.Provider value={{showAlert ,todo , setTodo}}>
+        <Typography variant="h3" align='center' component="div" sx={{ flexGrow: 1 }}>
+            TO DO
+          </Typography>
           <Container maxWidth="sm">
             <ToDoFrom/>
             <Snackbar 
