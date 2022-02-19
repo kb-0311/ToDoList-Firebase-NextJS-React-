@@ -35,6 +35,7 @@ const ToDoList = () => {
         {todos.map(todo=>
             <ToDo
                 key={todo.id}
+                id={todo.id}
                 title={todo.title}
                 details={todo.details}
                 timestamp={todo.timestamp}
