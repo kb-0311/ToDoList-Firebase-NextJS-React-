@@ -7,11 +7,11 @@ const ToDoFrom = () => {
     const [todo, setTodo] = useState({title : "" , details : ""});
 
     const {showAlert} = useContext(ToDoContext);
-    const onSubmit = () =>{
+    const onSubmit = async () =>{
 
-        const collectionRef = collection(db, "todos")
+        const collectionRef =  collection(db, "todos")
         
-        const docRef = addDoc(collectionRef ,{...todo , timestamp : serverTimestamp()  })
+        const docRef = await addDoc(collectionRef ,{...todo , timestamp : serverTimestamp()  })
 
 
         setTodo({title: "" , details : ""});
@@ -25,10 +25,12 @@ const ToDoFrom = () => {
   return (
     <div>
         <TextField fullWidth label="title" margin='normal'  
+            
             value={todo.title}
             onChange={e=>setTodo({...todo , title:e.target.value})}
         />
         <TextField fullWidth label="detail" multiline maxRows={4}  
+            
             value={todo.details}
             onChange={e=>setTodo({...todo , details:e.target.value})}
 
