@@ -1,3 +1,8 @@
+I had added my own personal firebaseconfig variables at the root of this repo, so the first thing I need you to do is create your own firebase.js file which will contain you firebase SDK configs provided in your firebase project .
+
+import {getFirestore} and itiilaize it to a variable db and export {db} from your own made firebase.js .
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
