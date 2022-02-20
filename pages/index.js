@@ -31,9 +31,7 @@ export default function Home() {
     setOpen(false);
   };
 
-  return <Login/>
 
-  return <Loading type = "bars" color = "blue"/>;
 
   return (
     <ToDoContext.Provider value={{showAlert ,todo , setTodo}}>
