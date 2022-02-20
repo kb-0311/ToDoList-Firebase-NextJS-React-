@@ -38,7 +38,7 @@ const Details = (props) => {
                   </CardContent>
                   <CardActions>
                       <Link href='/'>
-                          <Button size='small' > Back to Home</Button>
+                          <Button size='small' variant='contained'> Back to Home</Button>
                       </Link>
                   </CardActions>
 

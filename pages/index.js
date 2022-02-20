@@ -1,15 +1,19 @@
-import { Alert, Container, Snackbar, Typography } from '@mui/material'
+import { Alert, Avatar, Box, Container, IconButton, Snackbar, Typography } from '@mui/material'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useAuth } from '../Auth'
 import Loading from '../components/Loading'
 import Login from '../components/Login'
 import ToDoFrom from '../components/ToDoFrom'
 import ToDoList from '../components/ToDoList'
 import styles from '../styles/Home.module.css'
 import { ToDoContext } from './ToDoContext'
+import { auth } from '../firebase'
 
 export default function Home() {
+
+  const {currentUser} = useAuth();
 
   const [todo, setTodo] = useState({title : "" , details : ""});
 
@@ -39,6 +43,17 @@ export default function Home() {
             TO DO
           </Typography>
           <Container maxWidth="sm">
+            <Box sx={{display : 'flex' , justifyContent : 'space-between'   }}    mt ={3 } >
+              <IconButton onClick={() => auth.signOut() }>
+                  <Avatar src = {currentUser.photoURL}/>
+              </IconButton>
+              <Typography
+              variant='h5'
+
+              
+              >{currentUser.displayName}</Typography>
+
+            </Box>
             <ToDoFrom/>
             <Snackbar 
             anchorOrigin={{vertical: "top" , horizontal:"center"}}
