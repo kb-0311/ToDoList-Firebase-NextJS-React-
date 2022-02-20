@@ -1,12 +1,15 @@
 import { Button, TextField } from '@mui/material'
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import React, { useContext, useState , useRef ,useEffect } from 'react'
+import { useAuth } from '../Auth';
 import { db } from '../firebase';
 import  {ToDoContext} from '../pages/ToDoContext';
 const ToDoFrom = () => {
 
 
      const inputAreaRef  = useRef();
+     const {currentUser} = useAuth();
+
 
     //const [todo, setTodo] = useState({title : "" , details : ""});
 
@@ -44,7 +47,7 @@ const ToDoFrom = () => {
             const collectionRef =  collection(db, "todos")
 
             // getting and adding the document refernce to add
-            const docRef = await addDoc(collectionRef ,{...todo , timestamp : serverTimestamp()  })
+            const docRef = await addDoc(collectionRef ,{...todo , email: currentUser.email ,timestamp : serverTimestamp()  })
 
             //Resetting the state of 'todo'  
             setTodo({title: "" , details : ""});

@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../firebase'
 
-import { collection , onSnapshot, orderBy, query, QuerySnapshot } from 'firebase/firestore'
+import { collection , onSnapshot, orderBy, query, QuerySnapshot, where } from 'firebase/firestore'
 import ToDo from './toDo';
+import { useAuth } from '../Auth';
 
 
 const ToDoList = () => {
     const [todos, setTodos] = useState([]);
 
+    const {currentUser} = useAuth();
+
     useEffect(() => {
         
         const collectionRef =collection(db , "todos");
 
-        const q = query(collectionRef , orderBy("timestamp" , "desc"));
+        const q = query(collectionRef   ,   where("email" , "==" ,currentUser?.email) , orderBy("timestamp" , "desc"));
 
         const unsubstribe =onSnapshot(q , (querySnapshot)=>{
             setTodos(querySnapshot.docs.map(doc=>({...doc.data() , id : doc.id , timestamp: doc.data().
