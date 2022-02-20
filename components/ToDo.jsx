@@ -7,9 +7,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { ToDoContext } from '../pages/ToDoContext';
-
+import { useRouter } from 'next/router';
 
 const ToDo = ({id , timestamp , title , details}) => {
+
+  const router = useRouter();
 
 
   const {showAlert ,todo , setTodo}  = useContext(ToDoContext);
@@ -30,6 +32,14 @@ const ToDo = ({id , timestamp , title , details}) => {
 
   }
 
+  const seeMore = (id , e)=>{
+    e.stopPropagation();
+
+    router.push(`todos/${id}`);
+
+
+  }
+
 
   return (
       <ListItem onClick={()=>{setTodo({id  , title , details , timestamp})}}
@@ -42,7 +52,7 @@ const ToDo = ({id , timestamp , title , details}) => {
 
           </IconButton>
 
-          <IconButton>
+          <IconButton onClick={e => seeMore(id , e)}>
               <MoreVertIcon/>
 
           </IconButton>

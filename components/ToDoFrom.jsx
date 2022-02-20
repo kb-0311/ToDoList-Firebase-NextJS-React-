@@ -58,6 +58,7 @@ const ToDoFrom = () => {
 
     useEffect(() => {
         const checkIfClickedOuside = e =>{
+
             if(!inputAreaRef.current.contains(e.target)){
                 console.log("outside input area");
                 setTodo({title:'' ,details : "" })
