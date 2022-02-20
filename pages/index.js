@@ -2,6 +2,8 @@ import { Alert, Container, Snackbar, Typography } from '@mui/material'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
+import Loading from '../components/Loading'
+import Login from '../components/Login'
 import ToDoFrom from '../components/ToDoFrom'
 import ToDoList from '../components/ToDoList'
 import styles from '../styles/Home.module.css'
@@ -29,6 +31,9 @@ export default function Home() {
     setOpen(false);
   };
 
+  return <Login/>
+
+  return <Loading type = "bars" color = "blue"/>;
 
   return (
     <ToDoContext.Provider value={{showAlert ,todo , setTodo}}>
